@@ -2,9 +2,9 @@
 const express = require('express');
 const { createClient } = require('@supabase/supabase-js');
 const { log } = require('console');
+const cors = require('cors');
 
 // Membuat instance Express
-const app = express();
 const port = 3000;
 
 // Inisialisasi Supabase Client
@@ -13,6 +13,8 @@ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 // Middleware untuk parsing JSON body
+const app = express();
+
 app.use(express.json());
 
 // Endpoint untuk mengambil data dari Supabase
