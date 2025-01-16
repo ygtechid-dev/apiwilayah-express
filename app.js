@@ -67,23 +67,20 @@ app.post('/filterKabKot', async (req, res) => {
 
   app.post('/filterKecamatan', async (req, res) => {
     try {
-        const { kabkot_id } = req.body; // Ambil province_id dari body request
-      // Query data dari tabel 'users' misalnya
+      const { kabkot_id } = req.body; // Ambil kabkot_id dari body request
+  
+      // Query data dengan filter `ilike` langsung di Supabase
       const { data, error } = await supabase
         .from('info_kecamatan')  // Ganti dengan nama tabel Anda
-        .select('name, id'); // Pilih semua kolom
+        .select('name, id')      // Pilih kolom yang relevan
+        .ilike('id', `${kabkot_id.trim()}%`); // Filter berdasarkan id yang diawali dengan kabkot_id
   
       if (error) {
         throw error;
       }
-
-      
-      const filterdatas = data.filter((e) => e.id.trim().startsWith(kabkot_id.trim()));
   
-      console.log('dataPROVINC', filterdatas);
-      
-      // Kirimkan data ke client
-      res.json(filterdatas);
+      // Kirimkan hasil data ke klien
+      res.json(data);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: error.message });
@@ -93,23 +90,20 @@ app.post('/filterKabKot', async (req, res) => {
 
   app.post('/filterKelurahan', async (req, res) => {
     try {
-        const { kecamatan_id } = req.body; // Ambil province_id dari body request
-      // Query data dari tabel 'users' misalnya
+      const { kecamatan_id } = req.body; // Ambil kabkot_id dari body request
+  
+      // Query data dengan filter `ilike` langsung di Supabase
       const { data, error } = await supabase
         .from('info_kelurahan')  // Ganti dengan nama tabel Anda
-        .select('name, id'); // Pilih semua kolom
+        .select('name, id')      // Pilih kolom yang relevan
+        .ilike('id', `${kecamatan_id.trim()}%`); // Filter berdasarkan id yang diawali dengan kabkot_id
   
       if (error) {
         throw error;
       }
-
-      
-      const filterdatas = data.filter((e) => e.id.trim().startsWith(kecamatan_id.trim()));
   
-      console.log('dataKelurahan', filterdatas);
-      
-      // Kirimkan data ke client
-      res.json(filterdatas);
+      // Kirimkan hasil data ke klien
+      res.json(data);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: error.message });
