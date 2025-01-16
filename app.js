@@ -5,7 +5,7 @@ const { log } = require('console');
 const cors = require('cors');
 
 // Membuat instance Express
-const port = 3000;
+const port = 8080;
 
 // Inisialisasi Supabase Client
 const supabaseUrl = 'https://brxdwiefnwipsbgkfybi.supabase.co'; // Ganti dengan URL Supabase Anda
